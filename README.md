@@ -1,7 +1,8 @@
 # Graduate Projects
 
-## Fall 2023 Final Project
-### Exploring the Impact of Meditation on Selective Attention and Mood
+## Fall 2023 Final Project:
+## Exploring the Impact of Meditation on Selective Attention and Mood
+
 This is the Final Project I created in PSY 598: Behavioral Data Science I graduate level course. 
 Within this folder, you can find the original Project Poposal (a brief description of the project
 with some preliminary data analyses), the datasets used, and the rendered PDF of the final project.
@@ -18,8 +19,8 @@ over time?
 3) How does meditation affect average daily mood over time?
 
 ---
-## Spring 2024 Final Project
-### Predicting Online Gambling Behavior: A Machine Learning Approach
+## Spring 2024 Final Project:
+## Predicting Online Gambling Behavior: A Machine Learning Approach
 
 ### Overview
 This was the Final Project I created for my PSY 598: Behavioral Data Science II course.
@@ -38,8 +39,8 @@ There are three major aims for this project:
 3) Explore the win or loss outcome two players playing the same game.
 
 ---
-## Fall 2024 Final Project
-### Analyzing Young People's Spending Habits Using Open-Source Survey Data
+## Fall 2024 Final Project:
+## Analyzing Young People's Spending Habits Using Open-Source Survey Data
 
 ### Overview
 This was the Final Project I created for my SDS 510: Data Wrangling Course. Within this folder, you can find the 
