@@ -1,6 +1,6 @@
 ## Datasets - BDS I Final Project
 
-The dataset and data dictionary I used for this project can directly be found [here](https://osf.io/w9v28/) and within this repository.
+The dataset and data dictionary I used for this project can directly be found [here](https://osf.io/w9v28/) and within this repository. THe data directly dictionary identifies what each variable means within the dataset, itself.
 
 This data was collected independently by a 33-year old male doctoral student. Each row represents one day of data collection over the course of 900 days.
 
