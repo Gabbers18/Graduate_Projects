@@ -59,6 +59,5 @@ young people's spending habits within the scholarly literature and outlines acti
 
 ### Research Questions
 1) How can we predict spending habits from a person's demographics and preferences?
-2) What comparisions can we make between individual's preferences? How might these preferences be used to predict spending
-3) habits?
+2) What comparisions can we make between individual's preferences? How might these preferences be used to predict spending habits?
 
