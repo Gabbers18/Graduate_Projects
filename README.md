@@ -3,6 +3,7 @@
 ## Fall 2023 Final Project:
 ## Exploring the Impact of Meditation on Selective Attention and Mood
 
+*All parts of this project are coded in R.*
 This is the Final Project I created in PSY 598: Behavioral Data Science I graduate level course. 
 Within this folder, you can find the original Project Poposal (a brief description of the project
 with some preliminary data analyses), the datasets used, and the rendered PDF of the final project.
@@ -22,7 +23,7 @@ over time?
 ## Spring 2024 Final Project:
 ## Predicting Online Gambling Behavior: A Machine Learning Approach
 
-### Overview
+*All parts of this project are coded in R.*
 This was the Final Project I created for my PSY 598: Behavioral Data Science II course.
 
 The purpose of this final project is to analyze a dataset of my choice, showcasing my proficiency in data 
@@ -42,7 +43,7 @@ There are three major aims for this project:
 ## Fall 2024 Final Project:
 ## Analyzing Young People's Spending Habits Using Open-Source Survey Data
 
-### Overview
+*All parts of this project are coded in python.*
 This was the Final Project I created for my SDS 510: Data Wrangling Course. Within this folder, you can find the 
 dataset used, a brief project description/analysis outline, and the completed final project.
 
