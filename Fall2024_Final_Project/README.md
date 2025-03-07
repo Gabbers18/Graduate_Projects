@@ -8,7 +8,7 @@ The goal of this project is to leverage large-scale open-source data to explore 
 
 This dataset utilized for thist study contains massive survey data from young people, ranging from music preferences to spending preferences. This dataset has 1011 individuals represented by each row and 151 variables. Such variables range from general demographics like age, education, or gender, to media or social preferences, like music and movie tastes or number of friends and preferences for drinking and smoking.
 
-## Research Questions:
+## Research Questions
 1) How can we predict spending habits from a person's demographics and preferences?
 2) What comparisions can we make between individual's preferences? How might these preferences be used to predict spending habits?
 
