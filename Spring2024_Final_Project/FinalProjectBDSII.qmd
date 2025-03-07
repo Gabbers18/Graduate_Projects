@@ -1,0 +1,312 @@
+---
+title: "FinalProject"
+format: pdf
+author: "Gabrielle Young"
+date: "2024-04-22"
+---
+
+# Section 1
+
+Recently, I have noticed a spike in gambling, specifically online gambling, in 
+friend groups I associate with. This could be because I am from Las Vegas, or 
+maybe because the majority of my friends have now turned 21 and can legally 
+gamble, or maybe for some other reason I have not considered. Perhaps it is 
+because gambling is addictive. From my understanding, gambling can be just as
+addictive, if not more addictive than actual substances.
+
+I plan to explore the behavior of those who gamble using a dataset I found on 
+Kaggle. <https://www.kaggle.com/datasets/kingabzpro/gambling-behavior-bustabit/data> 
+This dataset contains behavior of gamblers using the online platform called 
+Bustabit. This data was collected from 10/31/2016 to 12/10/2016.
+
+The rules of the game are that you bet money in Bits and you must cash out before the game “busts.” Wins are calculated using the amount of the bet multiplied by the amount cashed out. For example, you bet 10 and you cash out at 3.5, so your win would be 35 minus what you put in, so 25. Bonuses are also added and must be multiplied by the bet. On Bustabit, the house also has a slight advantage, where for every 1 out of 100 games, all players bust.
+
+## The dataset at a glance:
+
+-   50001 rows; 43% NAs, meaning the player has busted before they were able to cash out. They chose a cash out value to play until, but busted before it was reached.
+-   9 variables: ID, GameID, Username, Bet, CashedOut, Bonus, Profit, BustedAt, PlayDate
+
+## Key variables of interest:
+
+-   GameID: an identifier randomized to match the exact time of play for each player login that has a set BustedAt multiplyer value
+-   Username: contains the unique nametag of each player
+-   Bet: the amount of bitcoin the player pays
+-   CashedOut: the multiplier value the player ends the game with that can be used to find player’s Total Win
+-   Bonus: the percentage (as a decimal) for each game the player is rewarded with
+-   Profit: amount of bitcoin the player walks away with (calculated as (Bet x CashedOut) + (Bet + Bonus) - Bet); Profit of NA is 0, Profit of 0 is a loss or a "bust."
+-   BustedAt: where the multiplier has been randomly set to “bust”
+-   PlayDate: Year, month, day and time of play
+
+## My new variables:
+
+-   Time of play (separated from PlayDate variable)
+-   Day of week of play (separated from PlayDate variable)
+-   Total win (calculated from amount Bet times amount cashed out)
+-   Frequent player (binary variable I will calculate from Username)
+-   Number of plays (calculated from Username)
+-   Win (binary variable where 1 = Profit greater than 0, 0 = Profit equal to 0)
+-   Returning player (calculated by Username where at player has played at LEAST one time in the past prior to the current date of play)
+-   Average bet (calculated using Username and Bet)
+-   Average cash out (calculated using Username and CashedOut)
+-   Player number (Player 1 or Player 2; derived from GameID and Username)
+
+Potential illustration using US Dollars (converting using the current worth of Bitcoin) - US Dollars of Bonus (converted from Bits) - US Dollars of Bet (converted from Bits) - US Dollars of Cash Out (converted from Bits) - US Dollars of Profit (converted from Bits)
+
+# Section 2
+
+```{r libraries, echo = FALSE}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r read-data}
+bitdf <- read.csv("/Users/gabrielleyoung/Desktop/School/Spring2024/BDSII\ /bustabit.csv")
+```
+
+```{r glimpse}
+glimpse(bitdf)
+```
+
+# Section 3
+
+-   Aim 1: Predict wins and loses of gambling.
+
+-   Aim 2: Predict the "types of gamblers" players may be.
+
+-   Aim 3: Explore the win or loss outcome two players playing the same game.
+
+## Predictor Variables:
+
+In order to investigate Aim 1, I will create a series of models with different predictor variables. I will use a simple model that uses the `Bet` as a lone predictor. I plan to expand and use variables derived from`PlayDate`, such as day of week, time, or season as predictors in combination with `Bet`, `Bonus`, and a series of other variables. I will create including a `Frequent player` binary variable and `Number of plays` variable, both calculated from individual's `Username`. I also will create variables `Average bet` and `Avearge cash out` that will differ for each player.
+
+To investigate Aim 2, I would like to look at different types of gamblers. I plan to use variables I have created, `Frequent player`, `Number of plays`, `Returning player`, and `Average bet` to do so. I will also use `Time of play`, `Bonus`, and `Bet` to make predictions.
+
+To investigate Aim 3, I would like to draw comparisons between players who are assigned the same `GameID`, meaning they are assigned a game with the same initial set conditions (multiplier). Predictor variables would be `Bet`, `Bonus`, `Average bet`, `Average cash out`, `Number of plays`, and `Frequent player`. I will also create a new variable assigning each player within a pair to be "Player 1" or "Player 2." This variable will be called `Player number`. The time of play variable will not apply here because individuals are assigned the same GameID when they play at the same exact time.
+
+## Outcome Variables:
+
+The outcome variable for Aim 1 will be the profit of each individuals game, modeled by the `Profit` variable. The outcome variable for Aim 2 will be "type of gambler," which will be portrayed by the group each individual player will be assigned. Aim 3 will have an outcome variable of `Win`, a binary variable that will be derived from the `Profit` variable, where 1 represents when `Profit` \> 0, and 0 represents when `Profit` = 0.
+
+# Section 4
+
+To model Aim 1, I plan to use a Random Forest or a Boosted Tree model because these models perform well on high dimensional data. To model Aim 2, I plan to use a k-means cluster analysis that I hypothesize will group players with similar game-playing tendencies. To model Aim 3, I plan to use a k-Nearest-Neighbors, or kNN approach to make a simple, binary prediction of a win or loss.
+
+For Aim 1, I plan to incorporate the following variables: `PlayDate`,`Play time`, `Bet`, `Bonus`,`Frequent player`,`Number of plays`, `Username`,`Average bet`, `Avearge cash out`, and `Profit`. For Aim 2, a few important variables I will use are `Frequent player`, `Number of plays`, `Returning player`, `Average bet`, `Time of play`,`Bonus`, and `Bet` to make player type predictions. Lastly, to investigate Aim 3, I will utilize `Bet`, `Bonus`, `Player number`, `Average bet`, `Average cash out`, `Number of plays`, `Frequent player`, and `Win` variables.
+
+These models have the potential to be applicable to other gambling domains. It may be possible that certain qualities of gamblers can be used to predict their wins and losses, which would have major implications in real-life. For example, knowing one's strengths and weaknesses as a more "frequent player," may alter how they gamble in future occurrences.
+
+-   group by player; mean of the cashout and ignore NA values
+-   filter out NAs
+
+# Exploratory Data Analysis
+
+```{r libraries}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(hutils)
+library(tidymodels)
+library(tidyverse)
+```
+
+```{r scatterplot}
+bitdf %>% ggplot(aes(x = Bet, y = Profit)) + geom_point() + geom_smooth() +
+  labs(Title = "Relationship Between the Amount of Bits Bet and Player's Profit",
+      x = "Bet (in Bits)", y = "Profit (in Bits)")
+
+bitdf %>% ggplot(aes(x = CashedOut, y = Profit)) + geom_point() + geom_smooth() +
+  geom_jitter() +
+  labs(Title = "Relationship Between the Amount of Bits Bet and Player's Profit",
+      x = "Value Cashed Out at (in Bits)", y = "Profit (in Bits)")
+```
+
+-   Are wins and losses based on the amount bet?
+
+Trends: - majority of players bet smaller amounts - the more players bet, the higher their profits are
+
+# Create New Variables
+
+```{r new-variables}
+bitdfc <- bitdf %>%
+  mutate(Profit = ifelse(is.na(Profit), 0, Profit))
+
+bitdfc <- bitdfc %>%
+  mutate(CashedOut = ifelse(is.na(CashedOut), 0, CashedOut))
+
+bitdfc <- bitdfc %>%
+  mutate(Bonus = ifelse(is.na(Bonus), 0, Bonus))
+
+bitdfc <- bitdfc %>%
+  group_by(Username) %>%
+  mutate(NumberOfPlays = n()) %>%
+  ungroup()
+
+bitdfc <- bitdfc %>%
+  mutate(ReturningPlayer = ifelse(NumberOfPlays > 1, 1, 0))
+
+bitdfc <- bitdfc %>%
+  group_by(Username) %>%
+mutate(AverageBet = mean(Bet)) %>% 
+  ungroup()
+
+bitdfc <- bitdfc %>%
+  group_by(Username) %>%
+mutate(AverageCashOut = mean(CashedOut)) %>% 
+  ungroup()
+
+bitdfc <- bitdfc %>%
+  mutate(Date = as.Date(PlayDate),
+       Time = hms(substr(PlayDate, 12,19)))
+bitdfc <- bitdfc %>%
+  mutate(Time = hms::hms(Time))
+
+
+bitdfc <- bitdfc %>%
+  mutate(Win = ifelse(Profit > 0,1,0))
+
+bitdfc <- bitdfc %>%
+group_by(Username) %>%
+mutate(FrequentPlayer = ifelse(n() >= 3, 1, 0)) %>%
+ungroup()
+
+glimpse(bitdfc)
+```
+
+```{r percentage-win-loses}
+win_count <- sum(bitdfc$Win == 1)
+loss_count <- sum(bitdfc$Win == 0)
+
+counts <- c(Wins = win_count, Losses = loss_count)
+
+pie(counts, labels = c("Wins", "Losses"), col = c("green", "red"))
+```
+
+Overall, we seem to have more Wins than Losses when looking at all games within the dataset. However, will we be able to predict these Wins and Losses?
+
+## Aim 1: Predict wins and loses of gambling
+
+```{r build-a-model}
+# Bet as a lone predictor
+
+set.seed(1)
+data_split <- initial_split(bitdfc)
+train <- training(data_split)
+test <- testing(data_split)
+
+folds = vfold_cv(train, v=10)
+
+simple_rec <- recipe(Profit ~ FrequentPlayer + NumberOfPlays + ReturningPlayer + AverageBet + Bonus + Bet, data = train) %>%
+    step_dummy(all_nominal_predictors(), -all_outcomes()) %>%
+    step_normalize(all_predictors(), -all_outcomes())
+
+models <- list(random_forest =  rand_forest() %>% 
+    set_engine("ranger") %>%
+    set_mode("regression"),
+               boosted_tree = boost_tree() %>% 
+    set_engine("xgboost") %>%
+    set_mode("regression"))
+
+wf_set <- workflow_set(preproc = list(base = simple_rec), models = models)
+
+fitted_models <- wf_set %>%
+    workflow_map(resamples = folds, fn = "fit_resamples")
+
+results <- fitted_models %>%
+    collect_metrics()
+
+print(results)
+```
+
+## Aim 2: Predict the "types of gamblers" players may be using k-means cluser
+
+## Analysis
+
+```{r k-means}
+set.seed(1)
+bitdfc_sample <- bitdfc %>% sample_frac(0.2)
+metric_set_clus <- cluster_metric_set(sse_ratio, silhouette_avg)
+kmeans_spec <- k_means(num_clusters = tune())
+kmeans_rec <- recipe(~ FrequentPlayer + NumberOfPlays + ReturningPlayer + AverageBet + Bonus + Bet, data = bitdfc_sample) %>%
+step_normalize(all_predictors())
+
+kmeans_tune_wflow <- workflow() %>%
+add_recipe(kmeans_rec) %>%
+add_model(kmeans_spec)
+
+grid <- tibble(num_clusters = 2:20)
+
+folds <- vfold_cv(bitdfc_sample, v = 6)
+
+tune_cluster <- tune_cluster(
+kmeans_tune_wflow,
+resamples = folds,
+grid= grid,
+metrics = metric_set_clus
+)
+
+kmeans_metrics <- tune_cluster %>% collect_metrics()
+print(kmeans_metrics)
+```
+
+```{r}
+kmeans_metrics %>% filter(.metric == "sse_ratio") %>%
+ggplot(aes(x = num_clusters, y = mean)) +
+geom_point() +
+geom_line() + labs(title = "Elbow Plot")
+
+kmeans_metrics %>%
+filter(.metric == "silhouette_avg") %>%
+ggplot(aes(x = num_clusters, y = mean)) +
+geom_point () +
+geom_line () +
+theme_minimal() + labs(title = "Silhouette Average Plot")
+
+kmeans_spec <- k_means(num_clusters = 5)
+optimal_kmeansfit <- workflow() %>%
+add_recipe(kmeans_rec) %>%
+add_model(kmeans_spec) %>%
+fit(data = bitdfc_sample)
+```
+
+```{r spot-the-trends}
+kmeans_clusters <- optimal_kmeansfit %>%
+predict(new_data = bitdfc_sample) %>%
+bind_cols(bitdfc_sample) %>%
+pull(.pred_cluster)
+
+bitdfc_k <- bitdfc_sample %>% mutate(.cluster_k = kmeans_clusters) 
+
+ggplot(bitdfc_k, aes(x = AverageBet, y = Profit, color = factor(.cluster_k))) +
+geom_point() + labs(x = "Number of Plays", y = "Average Bet", color = "Cluster") +
+theme_minimal()
+```
+
+Here, we cannot see the trends between players very well. So, we are going to use dimensionality reduction techniques to capture the first two Principle components of the data.
+
+```{r PCA}
+pca_rec <- recipe(~ FrequentPlayer + NumberOfPlays + ReturningPlayer + AverageBet + Bonus + Bet, data = bitdfc_sample) %>%
+step_normalize(all_predictors())%>%
+step_pca(all_numeric_predictors(), keep_original_cols = TRUE)
+pca_prep <- prep(pca_rec)
+pca_data <- bake(pca_prep, bitdfc_sample)
+
+pca_data <-cbind(pca_data,
+optimal_kmeansfit %>% extract_cluster_assignment() %>%
+rename(.km_cluster = .cluster))
+
+pcacentroids1 <- pca_data %>%
+group_by(.km_cluster) %>%
+summarise(across(c(PC1, PC2, PC3), mean))
+
+pca_data %>%
+  ggplot(aes(x = PC1, y = PC2, color = .km_cluster)) +
+  geom_point() +
+  geom_point(data = pcacentroids1, size = 5, shape = 'X') +
+  theme_minimal()
+```
+
+## Aim 3: Explore the win or loss outcome two players playing the same game
+
+```{r}
+
+```
