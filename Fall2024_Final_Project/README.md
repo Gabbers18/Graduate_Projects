@@ -2,7 +2,7 @@
 ## Analyzing Young People's Spending Habits Using Open-Source Survey Data
 
 ### Overview
-This was the Final Project I created for my SDS 510: Data Wrangling Course. Within this folder, you can find the dataset used, a brief project description/analysis outline, and the completed final project.
+This was the Final Project I created for my SDS 510: Data Wrangling Course. Within this folder, you can find the dataset used, a brief project description/analysis outline, and the completed final project and python script.
 
 The goal of this project is to leverage large-scale open-source data to explore a dataset of my choice, forming a well-argued narrative based on preliminary data analysis. Throughout the semester, I refined my research questions and methodologies surrounding young people's spending habits, incorporating peer feedback to enhance the project's quality. The analysis involves assembling and cleaning data from diverse sources, to create new insights emerge rather than replicating existing research. The project also includes a summary that contextualizes my findings surrounding young people's spending habits within the scholarly literature and outlines actionable next steps for further investigation.
 
