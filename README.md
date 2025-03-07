@@ -1,5 +1,5 @@
 # Graduate Projects
----
+
 ## Fall 2023 Final Project
 ### Exploring the Impact of Meditation on Selective Attention and Mood
 This is the Final Project I created in PSY 598: Behavioral Data Science I graduate level course. 
