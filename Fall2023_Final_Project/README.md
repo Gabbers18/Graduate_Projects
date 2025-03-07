@@ -1,4 +1,5 @@
 # Final Project - PSY 598 - BDS I
+##  Exploring the Impact of Meditation on Selective Attention and Mood
 
 ## Overview
 This is the Final Project I created in PSY 598: Behavioral Data Science I graduate level course. Within this folder, you can find the original Project Poposal (a brief description of the project with some preliminary data analyses), the datasets used, and the rendered PDF of the final project.
