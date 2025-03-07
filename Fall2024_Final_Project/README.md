@@ -1,4 +1,4 @@
-# Final Project - SDS 510
+# Fall 2024 Final Project - SDS 510
 ## Analyzing Young People's Spending Habits Using Open-Source Survey Data
 
 ### Overview
