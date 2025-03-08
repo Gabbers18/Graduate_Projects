@@ -253,7 +253,7 @@ ggsave("figures/bet_histogram3.png", plot = plot3, width = 6, height = 4)
     ## This warning is displayed once every 8 hours.
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
-
+![Histogram of Bet Amounts](figures/bet_histogram1.png)
 ![](figures/player-types-1.png)<!-- -->
 
 ``` r
