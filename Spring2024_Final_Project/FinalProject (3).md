@@ -238,7 +238,7 @@ originally 50,000 rows
     ## This warning is displayed once every 8 hours.
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
-
+![Histogram of Bet Amounts](figures/bet_histogram.png)
 ![](figures/player-types-1.png)
 
     bitdfc %>% ggplot(aes(x = NumberOfPlays)) + geom_histogram(fill = "#FF1493") +
